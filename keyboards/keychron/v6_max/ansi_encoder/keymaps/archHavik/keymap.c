@@ -36,17 +36,50 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
 
 	// Macros
 	switch (keycode) {
-	case QMKFLASH:
-		if (record->event.pressed) {
-			//when key is pressed
-			SEND_STRING("qmk flash\n");
-			reset_keyboard();
-		} else {
-			//when key is released
-		}
-		break;
+		case QMKFLASH:
+			if (record->event.pressed) {
+				//when key is pressed
+				SEND_STRING("qmk flash\n");
+				reset_keyboard();
+			} else {
+				//when key is released
+			}
+			break;
+		default:
+			break;
 	}
     return true;
+}
+
+//layer_state_t layer_state_set_user(layer_state_t state) {
+//	switch(get_highest_layer(state)) {
+//		case MAC_BASE:
+//			rgblight_sethsv_noeeprom(HSV_YELLOW);
+//			break;
+//		case MAC_FN:
+//			rgblight_sethsv_noeeprom(HSV_BLUE);
+//			break;
+//		case WIN_BASE:
+//			rgblight_sethsv_noeeprom(HSV_RED);
+//			break;
+//		case WIN_FN:
+//			rgblight_sethsv_noeeprom(HSV_GREEN);
+//			break;
+//		default:
+//			break;
+//	}
+//	return state;
+//}
+
+//layer_state_t default_layer_state_set_user(layer_state_t state) {
+//	layer_state_set_user(state);
+//	return state;
+//}
+
+//Set the indicator to show which layer is currently in use
+bool rgb_matrix_indicators_advanced_user(uint8_t led_min, uint8_t led_max) {
+	rgb_matrix_set_color(get_highest_layer(layer_state) + 1, RGB_WHITE);
+    return false;
 }
 
 // clang-format off
