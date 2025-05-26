@@ -4,7 +4,6 @@
  * it under the terms of the GNU General Public License as published by
  * the Free Software Foundation, either version 2 of the License, or
  * (at your option) any later version.
- *
  * This program is distributed in the hope that it will be useful,
  * but WITHOUT ANY WARRANTY; without even the implied warranty of
  * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
@@ -25,7 +24,7 @@ enum layers {
 };
 
 enum custom_keycodes {
-	QMKFLASH,
+	QMKFLASH = SAFE_RANGE,
 };
 
 // clang-format on
@@ -49,37 +48,6 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
 			break;
 	}
     return true;
-}
-
-//layer_state_t layer_state_set_user(layer_state_t state) {
-//	switch(get_highest_layer(state)) {
-//		case MAC_BASE:
-//			rgblight_sethsv_noeeprom(HSV_YELLOW);
-//			break;
-//		case MAC_FN:
-//			rgblight_sethsv_noeeprom(HSV_BLUE);
-//			break;
-//		case WIN_BASE:
-//			rgblight_sethsv_noeeprom(HSV_RED);
-//			break;
-//		case WIN_FN:
-//			rgblight_sethsv_noeeprom(HSV_GREEN);
-//			break;
-//		default:
-//			break;
-//	}
-//	return state;
-//}
-
-//layer_state_t default_layer_state_set_user(layer_state_t state) {
-//	layer_state_set_user(state);
-//	return state;
-//}
-
-//Set the indicator to show which layer is currently in use
-bool rgb_matrix_indicators_advanced_user(uint8_t led_min, uint8_t led_max) {
-	rgb_matrix_set_color(get_highest_layer(layer_state) + 1, RGB_WHITE);
-    return false;
 }
 
 // clang-format off
@@ -106,13 +74,53 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
         KC_LSFT,            KC_Z,     KC_X,     KC_C,     KC_V,     KC_B,     KC_N,     KC_M,     KC_COMM,  KC_DOT,   KC_SLSH,              KC_RSFT,              KC_UP,              KC_P1,    KC_P2,    KC_P3,
         KC_LCTL,  KC_LWIN,  KC_LALT,                                KC_SPC,                                 KC_RALT,  KC_RWIN,  MO(WIN_FN), KC_RCTL,    KC_LEFT,  KC_DOWN,  KC_RGHT,  KC_P0,              KC_PDOT,  KC_PENT),
     [WIN_FN] = LAYOUT_ansi_109(
-        _______,  KC_BRID,  KC_BRIU,  KC_TASK,  KC_FILE,  RGB_VAD,  RGB_VAI,  KC_MPRV,  KC_MPLY,  KC_MNXT,  KC_MUTE,  KC_VOLD,  KC_VOLU,    RGB_TOG,    _______,  _______,  RGB_TOG,  _______,  _______,  _______,  QMKFLASH,
-        _______,  BT_HST1,  BT_HST2,  BT_HST3,  P2P4G,    _______,  _______,  _______,  _______,  _______,  _______,  _______,  _______,    _______,    _______,  _______,  _______,  _______,  _______,  _______,  _______,
-        RGB_TOG,  RGB_MOD,  RGB_VAI,  RGB_HUI,  RGB_SAI,  RGB_SPI,  _______,  _______,  _______,  _______,  _______,  _______,  _______,    _______,    _______,  _______,  _______,  _______,  _______,  _______,
-        _______,  RGB_RMOD, RGB_VAD,  RGB_HUD,  RGB_SAD,  RGB_SPD,  _______,  _______,  _______,  _______,  _______,  _______,              _______,                                  _______,  _______,  _______,  _______,
-        _______,            _______,  _______,  _______,  _______,  BAT_LVL,  NK_TOGG,  _______,  _______,  _______,  _______,              _______,              _______,            _______,  _______,  _______,  
+        _______,  _______,  _______,  _______,  _______,  _______,  _______,  _______,  _______,  _______,  _______,  _______,  _______,    _______,    _______,  _______,  _______,  _______,  _______,  _______,  QMKFLASH,
+        _______,  KC_MPRV,  KC_MPLY,  KC_MNXT,  _______,  _______,  _______,  _______,  _______,  _______,  _______,  _______,  _______,    _______,    _______,  _______,  _______,  _______,  _______,  _______,  _______,
+        _______,  RGB_TOG,  _______,  _______,  _______,  _______,  _______,  _______,  _______,  _______,  _______,  _______,  _______,    _______,    _______,  _______,  _______,  _______,  _______,  _______,
+        _______,  _______,  _______,  _______,  _______,  _______,  _______,  _______,  _______,  _______,  _______,  _______,              _______,                                  _______,  _______,  _______,  _______,
+        _______,            _______,  _______,  _______,  _______,  _______,  _______,  _______,  _______,  _______,  _______,              _______,              _______,            _______,  _______,  _______,  
         _______,  _______,  _______,                                _______,                                _______,  _______,  _______,    _______,    _______,  _______,  _______,  _______,            _______,  _______)
 };
+
+//layer_state_t layer_state_set_user(layer_state_t state) {
+//	switch(get_highest_layer(state)) {
+//		case MAC_BASE:
+//			break;
+//		case MAC_FN:
+//			break;
+//		case WIN_BASE:
+//			break;
+//		case WIN_FN:
+//			break;
+//		default:
+//			break;
+//	}
+//	return state;
+//}
+
+//layer_state_t default_layer_state_set_user(layer_state_t state) {
+//	layer_state_set_user(state);
+//	return state;
+//}
+
+//Set the indicator to show which layer is currently in use
+bool rgb_matrix_indicators_advanced_user(uint8_t led_min, uint8_t led_max) {
+	uint8_t layer = get_highest_layer(layer_state);
+	rgb_matrix_set_color(layer + 1, INDICATOR_COLOR);
+
+	if (layer == MAC_FN || layer == WIN_FN) {
+		for (uint8_t row = 0; row < MATRIX_ROWS; ++row) {
+            for (uint8_t col = 0; col < MATRIX_COLS; ++col) {
+                uint8_t index = g_led_config.matrix_co[row][col];
+
+                if (index >= led_min && index < led_max && index != NO_LED && keymap_key_to_keycode(layer, (keypos_t){col,row}) > KC_TRNS) {
+                    rgb_matrix_set_color(index, INDICATOR_COLOR);
+                }
+            }
+        }
+	}
+    return false;
+}
 
 #if defined(ENCODER_MAP_ENABLE)
 const uint16_t PROGMEM encoder_map[][NUM_ENCODERS][2] = {

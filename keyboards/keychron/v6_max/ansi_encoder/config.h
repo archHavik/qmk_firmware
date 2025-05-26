@@ -41,8 +41,12 @@
 #    define RGB_MATRIX_DRIVER_SHUTDOWN_ENABLE
 /* Turn off backlight on low brightness to save power */
 #    define RGB_MATRIX_BRIGHTNESS_TURN_OFF_VAL 32
+
 /* Set Default RGB mode to solid red */
 #    define RGB_MATRIX_DEFAULT_MODE RGB_MATRIX_SOLID_COLOR
+
+/* Set the indicator color for easy modification */
+#	 define INDICATOR_COLOR RGB_WHITE
 
 /* Indications */
 #    define NUM_LOCK_INDEX 37

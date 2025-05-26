@@ -44,6 +44,11 @@
 #define HOST_P2P4G 0x10
 #define LED_ON 0x80
 
+// set the indicator color
+#ifndef INDICATOR_COLOR
+#	define INDICATOR_COLOR RGB_WHITE
+#endif
+
 // #define RGB_MATRIX_TIMEOUT_INFINITE 0xFFFFFFFF
 #ifdef LED_MATRIX_ENABLE
 #    define DECIDE_TIME(t, duration) (duration == 0 ? LED_MATRIX_TIMEOUT_INFINITE : ((t > duration) ? t : duration))
@@ -130,7 +135,7 @@ static pin_t p24g_led_pin_list[P24G_HOST_DEVICES_COUNT] = P24G_HOST_LED_PIN_LIST
 #    define LED_NONE_INDICATORS_KB rgb_matrix_none_indicators_kb
 #    define SET_ALL_LED_OFF() rgb_matrix_set_color_all(0, 0, 0)
 #    define SET_LED_OFF(idx) rgb_matrix_set_color(idx, 0, 0, 0)
-#    define SET_LED_ON(idx) rgb_matrix_set_color(idx, 255, 255, 255)
+#    define SET_LED_ON(idx) rgb_matrix_set_color(idx, INDICATOR_COLOR)
 #    define SET_LED_BT(idx) rgb_matrix_set_color(idx, 0, 0, 255)
 #    define SET_LED_P24G(idx) rgb_matrix_set_color(idx, 0, 255, 0)
 #    define SET_LED_LOW_BAT(idx) rgb_matrix_set_color(idx, 255, 0, 0)
