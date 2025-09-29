@@ -45,8 +45,9 @@
 /* Set Default RGB mode to solid red */
 #    define RGB_MATRIX_DEFAULT_MODE RGB_MATRIX_SOLID_COLOR
 
-/* Set the indicator color for easy modification */
-#	 define INDICATOR_COLOR RGB_WHITE
+/* Set the indicator colors for easy modification */
+#	 define INDICATOR_COLOR RGB_BLUE
+#    define LAYER_INDICATOR_COLOR RGB_WHITE
 
 /* Indications */
 #    define NUM_LOCK_INDEX 37

@@ -45,8 +45,8 @@
 #define LED_ON 0x80
 
 // set the indicator color
-#ifndef INDICATOR_COLOR
-#	define INDICATOR_COLOR RGB_WHITE
+#ifndef LAYER_INDICATOR_COLOR
+#	define LAYER_INDICATOR_COLOR RGB_WHITE
 #endif
 
 // #define RGB_MATRIX_TIMEOUT_INFINITE 0xFFFFFFFF
@@ -137,7 +137,7 @@ static pin_t p24g_led_pin_list[P24G_HOST_DEVICES_COUNT] = P24G_HOST_LED_PIN_LIST
 #    define LED_NONE_INDICATORS_KB rgb_matrix_none_indicators_kb
 #    define SET_ALL_LED_OFF() rgb_matrix_set_color_all(0, 0, 0)
 #    define SET_LED_OFF(idx) rgb_matrix_set_color(idx, 0, 0, 0)
-#    define SET_LED_ON(idx) rgb_matrix_set_color(idx, INDICATOR_COLOR)
+#    define SET_LED_ON(idx) rgb_matrix_set_color(idx, LAYER_INDICATOR_COLOR)
 #    define SET_LED_BT(idx) rgb_matrix_set_color(idx, 0, 0, 255)
 #    define SET_LED_P24G(idx) rgb_matrix_set_color(idx, 0, 255, 0)
 #    define SET_LED_LOW_BAT(idx) rgb_matrix_set_color(idx, 255, 0, 0)
@@ -344,7 +344,7 @@ static void indicator_timer_cb(void *arg) {
             }
         }
 #endif
-        
+
         if ((indicator_config.value & LED_ON) && !time_up) {
             if (led_lin_list) writePin(led_lin_list[idx], HOST_LED_PIN_ON_STATE);
 #    if defined(COMMON_BT_LED_PIN) || defined(COMMON_P24G_LED_PIN)
@@ -356,7 +356,7 @@ static void indicator_timer_cb(void *arg) {
             if (led_pin != NO_PIN) writePin(led_pin, !COMMON_BT_LED_PIN_ON_STATE);
 #    endif
         }
-        
+
     }
 #endif
 
